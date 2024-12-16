@@ -9,81 +9,95 @@ function CreateDiceApp(onDestroy) {
 CreateDiceApp.prototype.construct = function () {
     console.log('In constructor');
 
-    this.windowWrapper = document.createElement("div");
+    this.windowWrapper = this.createElement("div", {
+        className: ["dice-window-wrapper"],
+        appendTo: document.getElementById("page-content-wrapper")
+    });
 
-    var diceAppDiv = document.getElementById("page-content-wrapper");
-    var menuWrapper = document.createElement("div");
-    var closeBtn = document.createElement("div");
+    this.menuWrapper = this.createElement("div", {
+        className: ["dice-menubar-wrapper"],
+        appendTo: this.windowWrapper
+    });
 
-    var toolBarWrapper = document.createElement("div");
-    var toolbarUl = document.createElement("ul");
-    var addDice = document.createElement("li");
-    var removeDice = document.createElement("li");
-    var rollDice = document.createElement("li");
+    this.closeBtn = this.createElement("div", {
+        className: ["close"],
+        appendTo: this.menuWrapper,
+        event: {
+            click: function () {
+                this.deStruct()
+            }.bind(this)
+        }
+    });
 
-    var liForToolbar = document.createElement("li");
-    var toolbarInnerUl = document.createElement("ul");
+    this.toolBarWrapper = this.createElement("div", {
+        className: ["dice-toolbar-wrapper"],
+        appendTo: this.windowWrapper
+    });
+
+    this.toolBarUl = this.createElement("ul", {
+        appendTo: this.toolBarWrapper
+    });
+
+    this.addDiceBtn = this.createElement("li", {
+        className: ["add"],
+        appendTo: this.toolBarUl,
+        event: {
+            click: function () {
+                this.addDice();
+                this.calcSum();
+                this.displaySum();
+            }.bind(this)
+        }
+    });
+
+    this.removeDiceBtn = this.createElement("li", {
+        className: ["remove"],
+        appendTo: this.toolBarUl,
+        event: {
+            click: function () {
+                this.removeDice();
+                this.calcSum();
+                this.displaySum();
+            }.bind(this)
+        }
+    });
+
+    this.rollDiceBtn = this.createElement("li", {
+        className: ["roll"],
+        appendTo: this.toolBarUl,
+        event: {
+            click: function () {
+                this.rollDice();
+                this.calcSum();
+                this.displaySum();
+            }.bind(this)
+        }
+    });
+
+    this.liForToolbar = this.createElement("li", {
+        appendTo: this.toolBarUl
+    });
+
+    this.toolbarInnerUl = this.createElement("ul", {
+        className: ["dice-toolbar-counter-wrapper"],
+        appendTo: this.liForToolbar
+    });
+
     for (var i = 0; i < 5; i++) {
-        console.log('in loop');
-        var liZero = document.createElement("li");
+        this.liZero = this.createElement("li", {
+            className: ["zero"],
+            appendTo: this.toolbarInnerUl
+        });
+    };
 
-        liZero.classList.add("zero");
-        toolbarInnerUl.appendChild(liZero);
-    }
+    this.diceContentWrapper = this.createElement("div", {
+        className: ["dice-content-wrapper"],
+        appendTo: this.windowWrapper
+    });
 
-    var diceContentWrapper = document.createElement("div");
-    this.diceWrapperUl = document.createElement("ul");
-
-    this.windowWrapper.classList.add("dice-window-wrapper");
-    menuWrapper.classList.add("dice-menubar-wrapper");
-    closeBtn.classList.add("close");
-
-    toolBarWrapper.classList.add("dice-toolbar-wrapper");
-    addDice.classList.add("add");
-    removeDice.classList.add("remove");
-    rollDice.classList.add("roll");
-
-    toolbarInnerUl.classList.add("dice-toolbar-counter-wrapper");
-
-    diceContentWrapper.classList.add("dice-content-wrapper");
-
-    diceAppDiv.appendChild(this.windowWrapper);
-    this.windowWrapper.appendChild(menuWrapper);
-    menuWrapper.appendChild(closeBtn);
-
-    this.windowWrapper.appendChild(toolBarWrapper);
-    toolBarWrapper.appendChild(toolbarUl);
-    toolbarUl.appendChild(addDice);
-    toolbarUl.appendChild(removeDice);
-    toolbarUl.appendChild(rollDice);
-
-    toolbarUl.appendChild(liForToolbar);
-    liForToolbar.appendChild(toolbarInnerUl);
-
-    this.windowWrapper.appendChild(diceContentWrapper);
-    diceContentWrapper.appendChild(this.diceWrapperUl);
-
-
-
-    addDice.addEventListener("click", function (event) {
-        this.addDice();
-        this.calcSum();
-        this.displaySum();
-    }.bind(this));
-
-    removeDice.addEventListener("click", function (event) {
-        this.removeDice();
-        this.calcSum();
-        this.displaySum();
-    }.bind(this));
-
-    rollDice.addEventListener("click", function (event) {
-        this.rollDice();
-        this.calcSum();
-        this.displaySum();
-    }.bind(this));
-
-    closeBtn.addEventListener("click", this.deStruct.bind(this));
+    this.diceWrapperUl = this.createElement("ul", {
+        appendTo: this.diceContentWrapper
+    });
 }
 
 CreateDiceApp.prototype.deStruct = function () {
@@ -92,6 +106,27 @@ CreateDiceApp.prototype.deStruct = function () {
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
     }
+}
+
+CreateDiceApp.prototype.createElement = function (tag, obj) {
+    console.log(tag, obj);
+    elem = document.createElement(tag);
+
+    if (obj.className) {
+        elem.classList.add(obj.className);
+    }
+
+    if (obj.appendTo) {
+        obj.appendTo.appendChild(elem);
+    }
+
+    if (obj.event) {
+        for (var typeOfEvent in obj.event) {
+            elem.addEventListener(typeOfEvent, obj.event[typeOfEvent]);
+        }
+    }
+
+    return elem;
 }
 
 CreateDiceApp.prototype.addDice = function () {
@@ -144,7 +179,7 @@ CreateDiceApp.prototype.displaySum = function () {
     this.toolbarInnerUl = document.querySelector(".dice-toolbar-counter-wrapper");
 
     this.Sum = this.calcSum();
-   
+
     var sumToString = this.Sum.toString();
     console.log(sumToString);
 
