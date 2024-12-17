@@ -1,6 +1,5 @@
 
-function CreateDiceApp(onDestroy) {
-    this.onDestroy = onDestroy;
+function CreateDiceApp() {
     this.construct();
     this.sum = 0;
     this.die = new Array();
@@ -135,7 +134,7 @@ CreateDiceApp.prototype.addDice = function () {
 
 CreateDiceApp.prototype.dice = function () {
     console.log('In prototype "dice" of CreateDiceApp class.');
-    var die = new Dice;
+    var die = new Dice();
 
     this.diceWrapperUl.appendChild(die.render());
     this.die.push(die);
@@ -144,7 +143,7 @@ CreateDiceApp.prototype.dice = function () {
 CreateDiceApp.prototype.removeDice = function () {
     if (this.diceWrapperUl.lastChild) {
         this.diceWrapperUl.removeChild(this.diceWrapperUl.lastChild);
-        this.die.pop(this.diceWrapperUl.lastChild);
+        this.die.pop();
     } else {
         console.log("There are no dice to remove.");
         return;
@@ -155,7 +154,7 @@ CreateDiceApp.prototype.rollDice = function () {
     var diceElements = this.diceWrapperUl.children;
 
     for (var i = 0; i < diceElements.length; i++) {
-        var die = new Dice;
+        var die = new Dice();
         var newDice = die.render();
 
         this.diceWrapperUl.replaceChild(newDice, diceElements[i]);
@@ -164,7 +163,7 @@ CreateDiceApp.prototype.rollDice = function () {
 }
 
 CreateDiceApp.prototype.calcSum = function () {
-    console.log('Inside calcSum');
+    console.log('Inside calcSum of' + this);
     this.sum = 0;
 
     for (var i = 0; i < this.die.length; i++) {
@@ -176,15 +175,20 @@ CreateDiceApp.prototype.calcSum = function () {
 CreateDiceApp.prototype.displaySum = function () {
     var stringNumbers = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
-    this.toolbarInnerUl = document.querySelector(".dice-toolbar-counter-wrapper");
+    this.liElems = document.querySelectorAll(".zero");
 
     this.Sum = this.calcSum();
 
     var sumToString = this.Sum.toString();
-    console.log(sumToString);
+    
+    var sumWithPadding = sumToString.padStart(this.liElems.length, "0");
 
-    for (var i = 0; i < sumToString.length; i++) {
-        console.log('Number of die: ' + this.die.length);
-        this.toolbarInnerUl.children[i].classList.add(stringNumbers[parseFloat(sumToString[i])]);
+    console.log(this.liElems.length);
+    for (var i = 0; i < this.liElems.length; i++) {
+        var number = parseInt(sumWithPadding[i]);
+
+        this.liElems[i].className = "";
+        this.liElems[i].classList.add("zero");
+        this.liElems[i].classList.add(stringNumbers[number]);
     }
 }

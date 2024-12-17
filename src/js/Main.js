@@ -1,13 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
     new Document();
-});
+})
 
 function Document() {
     this.init();
 }
 
 Document.prototype.init = function () {
-    var diceBtn = document.getElementById("icon-dice")
+    var diceBtn = document.getElementById("icon-dice");
     diceBtn.addEventListener("click", this.createDiceApp);
 
 }
@@ -15,5 +15,5 @@ Document.prototype.init = function () {
 Document.prototype.createDiceApp = function () {
     console.log("Creating dice application...");
 
-    new CreateDiceApp(function () {}.bind(this));
+    new CreateDiceApp();
 }
