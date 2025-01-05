@@ -228,10 +228,29 @@ CreateDiceApp.prototype.dragApp = function (e) {
 
     console.log(dragElemRect);
 
-    var dx = e.clientX - dragElemRect.x;
-    var dy = e.clientY - dragElemRect.y;
+    var offsetX = e.clientX - dragElemRect.left;
+    var offsetY = e.clientY - dragElemRect.top;
 
-    var dragClone = dragElem.cloneNode(true);
-    dragClone.classList.add("dragItemClone");
-    
+    console.log(offsetX, offsetY);
+
+    var onMouseMove = function (moveEvent) {
+        moveEvent.preventDefault();
+
+        var x = moveEvent.clientX - offsetX;
+        var y = moveEvent.clientY - offsetY;
+
+        dragElem.style.position = "absolute";
+        dragElem.style.left = x + "px";
+        dragElem.style.top = y + "px";
+
+        
+    }
+
+    var onMouseUp = function () {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
 }
