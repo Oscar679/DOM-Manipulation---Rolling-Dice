@@ -15,7 +15,12 @@ CreateDiceApp.prototype.construct = function () {
 
     this.menuWrapper = this.createElement("div", {
         className: ["dice-menubar-wrapper"],
-        appendTo: this.windowWrapper
+        appendTo: this.windowWrapper,
+        event: {
+            mousedown: function (e) {
+                this.dragApp(e);
+            }.bind(this)
+        }
     });
 
     this.closeBtn = this.createElement("div", {
@@ -23,7 +28,7 @@ CreateDiceApp.prototype.construct = function () {
         appendTo: this.menuWrapper,
         event: {
             click: function () {
-                this.deStruct()
+                this.deStruct();
             }.bind(this)
         }
     });
@@ -104,12 +109,13 @@ CreateDiceApp.prototype.deStruct = function () {
 
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
+
     }
 }
 
 CreateDiceApp.prototype.createElement = function (tag, obj) {
     console.log(tag, obj);
-    elem = document.createElement(tag);
+    var elem = document.createElement(tag);
 
     if (obj.className) {
         elem.classList.add(obj.className);
@@ -129,11 +135,32 @@ CreateDiceApp.prototype.createElement = function (tag, obj) {
 }
 
 CreateDiceApp.prototype.addDice = function () {
-    this.dice();
+    if (this.die.length > 0) {
+        var appWidth = this.diceContentWrapper.offsetWidth;
+        var diceWidth = this.die[0].liDice.offsetWidth + 8;
+
+        var appHeight = this.diceContentWrapper.offsetHeight;
+        var diceHeight = this.die[0].liDice.offsetHeight + 8;
+
+        var maxDiceRow = Math.floor(appWidth / diceWidth);
+        var maxDiceColumn = Math.floor(appHeight / diceHeight);
+
+        var maxDice = maxDiceRow * maxDiceColumn;
+
+        console.log("Maximum amount of dice are: ", maxDice);
+    }
+
+    if (this.die.length >= maxDice) {
+        console.log("Maximum amount of dice reached.");
+        return;
+    } else {
+        this.dice();
+    }
 }
 
 CreateDiceApp.prototype.dice = function () {
     console.log('In prototype "dice" of CreateDiceApp class.');
+
     var die = new Dice();
 
     this.diceWrapperUl.appendChild(die.render());
@@ -163,7 +190,7 @@ CreateDiceApp.prototype.rollDice = function () {
 }
 
 CreateDiceApp.prototype.calcSum = function () {
-    console.log('Inside calcSum of' + this);
+    console.log('Inside calcSum of', this);
     this.sum = 0;
 
     for (var i = 0; i < this.die.length; i++) {
@@ -175,12 +202,12 @@ CreateDiceApp.prototype.calcSum = function () {
 CreateDiceApp.prototype.displaySum = function () {
     var stringNumbers = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
-    this.liElems = document.querySelectorAll(".zero");
+    this.liElems = this.windowWrapper.querySelectorAll(".zero");
 
     this.Sum = this.calcSum();
 
     var sumToString = this.Sum.toString();
-    
+
     var sumWithPadding = sumToString.padStart(this.liElems.length, "0");
 
     console.log(this.liElems.length);
@@ -191,4 +218,20 @@ CreateDiceApp.prototype.displaySum = function () {
         this.liElems[i].classList.add("zero");
         this.liElems[i].classList.add(stringNumbers[number]);
     }
+}
+
+CreateDiceApp.prototype.dragApp = function (e) {
+    e.preventDefault();
+
+    var dragElem = this.windowWrapper;
+    var dragElemRect = dragElem.getBoundingClientRect();
+
+    console.log(dragElemRect);
+
+    var dx = e.clientX - dragElemRect.x;
+    var dy = e.clientY - dragElemRect.y;
+
+    var dragClone = dragElem.cloneNode(true);
+    dragClone.classList.add("dragItemClone");
+    
 }
