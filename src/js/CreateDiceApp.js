@@ -3,6 +3,11 @@ function CreateDiceApp() {
     this.construct();
     this.sum = 0;
     this.die = new Array();
+    this.sound = new Audio("src/wav/add.wav");
+    this.sound.preload = "auto";
+    this.sound.play();
+
+    this.dragHandler = new DragHandler(this.windowWrapper);
 }
 
 CreateDiceApp.prototype.construct = function () {
@@ -15,12 +20,7 @@ CreateDiceApp.prototype.construct = function () {
 
     this.menuWrapper = this.createElement("div", {
         className: ["dice-menubar-wrapper"],
-        appendTo: this.windowWrapper,
-        event: {
-            mousedown: function (e) {
-                this.dragApp(e);
-            }.bind(this)
-        }
+        appendTo: this.windowWrapper
     });
 
     this.closeBtn = this.createElement("div", {
@@ -50,6 +50,7 @@ CreateDiceApp.prototype.construct = function () {
                 this.addDice();
                 this.calcSum();
                 this.displaySum();
+                this.playSound();
             }.bind(this)
         }
     });
@@ -62,6 +63,7 @@ CreateDiceApp.prototype.construct = function () {
                 this.removeDice();
                 this.calcSum();
                 this.displaySum();
+                this.playSound();
             }.bind(this)
         }
     });
@@ -74,6 +76,7 @@ CreateDiceApp.prototype.construct = function () {
                 this.rollDice();
                 this.calcSum();
                 this.displaySum();
+                this.playSound();
             }.bind(this)
         }
     });
@@ -109,7 +112,10 @@ CreateDiceApp.prototype.deStruct = function () {
 
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
+    }
 
+    if (this.dragHandler) {
+        this.dragHandler.deStruct();
     }
 }
 
@@ -220,37 +226,7 @@ CreateDiceApp.prototype.displaySum = function () {
     }
 }
 
-CreateDiceApp.prototype.dragApp = function (e) {
-    e.preventDefault();
-
-    var dragElem = this.windowWrapper;
-    var dragElemRect = dragElem.getBoundingClientRect();
-
-    console.log(dragElemRect);
-
-    var offsetX = e.clientX - dragElemRect.left;
-    var offsetY = e.clientY - dragElemRect.top;
-
-    console.log(offsetX, offsetY);
-
-    var onMouseMove = function (moveEvent) {
-        moveEvent.preventDefault();
-
-        var x = moveEvent.clientX - offsetX;
-        var y = moveEvent.clientY - offsetY;
-
-        dragElem.style.position = "absolute";
-        dragElem.style.left = x + "px";
-        dragElem.style.top = y + "px";
-
-        
-    }
-
-    var onMouseUp = function () {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
-    }
-
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+CreateDiceApp.prototype.playSound = function () {
+    console.log("In audio playing method.");
+    this.sound.play();
 }

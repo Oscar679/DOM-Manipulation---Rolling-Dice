@@ -19,5 +19,4 @@ Dice.prototype.render = function () {
     this.liDice.classList.add("dice", "dice-side-" + diceSides[this.value - 1]);
 
     return this.liDice;
-    // Om jag vet vad själva applikationens eller då alltså diceContentWrappers dimensioner är kan jag använda dessa för att räkna ut hur många tärningar som får plats för aktuell gränssnittsstorlek
 }
