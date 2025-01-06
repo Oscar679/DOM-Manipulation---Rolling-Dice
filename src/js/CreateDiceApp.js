@@ -5,9 +5,9 @@ function CreateDiceApp() {
     this.die = new Array();
     this.sound = new Audio("src/wav/add.wav");
     this.sound.preload = "auto";
-    this.sound.play();
 
     this.dragHandler = new DragHandler(this.windowWrapper);
+    this.zIndexHandler = new ZIndexHandler(this.windowWrapper);
 }
 
 CreateDiceApp.prototype.construct = function () {
@@ -18,6 +18,7 @@ CreateDiceApp.prototype.construct = function () {
         appendTo: document.getElementById("page-content-wrapper")
     });
 
+    console.log(this.windowWrapper);
     this.menuWrapper = this.createElement("div", {
         className: ["dice-menubar-wrapper"],
         appendTo: this.windowWrapper
@@ -214,6 +215,7 @@ CreateDiceApp.prototype.displaySum = function () {
 
     var sumToString = this.Sum.toString();
 
+    //Här behöver jag skapa metoden för padStart manuellt.
     var sumWithPadding = sumToString.padStart(this.liElems.length, "0");
 
     console.log(this.liElems.length);

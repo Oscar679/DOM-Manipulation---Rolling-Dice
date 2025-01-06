@@ -1,6 +1,6 @@
 function DragHandler(element) {
     this.element = element;
-
+    this.menuBar = this.element.firstChild;
     this.dragStart = this.dragStart.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -9,7 +9,7 @@ function DragHandler(element) {
 }
 
 DragHandler.prototype.construct = function () {
-    this.element.addEventListener("mousedown", this.dragStart);
+    this.menuBar.addEventListener("mousedown", this.dragStart);
 }
 
 DragHandler.prototype.dragStart = function (e) {
