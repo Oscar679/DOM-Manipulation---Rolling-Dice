@@ -14,18 +14,18 @@ CreateDiceApp.prototype.construct = function () {
     console.log('In constructor');
 
     this.windowWrapper = this.createElement("div", {
-        className: ["dice-window-wrapper"],
+        className: "dice-window-wrapper",
         appendTo: document.getElementById("page-content-wrapper")
     });
 
     console.log(this.windowWrapper);
     this.menuWrapper = this.createElement("div", {
-        className: ["dice-menubar-wrapper"],
+        className: "dice-menubar-wrapper",
         appendTo: this.windowWrapper
     });
 
     this.closeBtn = this.createElement("div", {
-        className: ["close"],
+        className: "close",
         appendTo: this.menuWrapper,
         event: {
             click: function () {
@@ -35,7 +35,7 @@ CreateDiceApp.prototype.construct = function () {
     });
 
     this.toolBarWrapper = this.createElement("div", {
-        className: ["dice-toolbar-wrapper"],
+        className: "dice-toolbar-wrapper",
         appendTo: this.windowWrapper
     });
 
@@ -44,7 +44,7 @@ CreateDiceApp.prototype.construct = function () {
     });
 
     this.addDiceBtn = this.createElement("li", {
-        className: ["add"],
+        className: "add",
         appendTo: this.toolBarUl,
         event: {
             click: function () {
@@ -57,7 +57,7 @@ CreateDiceApp.prototype.construct = function () {
     });
 
     this.removeDiceBtn = this.createElement("li", {
-        className: ["remove"],
+        className: "remove",
         appendTo: this.toolBarUl,
         event: {
             click: function () {
@@ -70,7 +70,7 @@ CreateDiceApp.prototype.construct = function () {
     });
 
     this.rollDiceBtn = this.createElement("li", {
-        className: ["roll"],
+        className: "roll",
         appendTo: this.toolBarUl,
         event: {
             click: function () {
@@ -87,19 +87,19 @@ CreateDiceApp.prototype.construct = function () {
     });
 
     this.toolbarInnerUl = this.createElement("ul", {
-        className: ["dice-toolbar-counter-wrapper"],
+        className: "dice-toolbar-counter-wrapper",
         appendTo: this.liForToolbar
     });
 
     for (var i = 0; i < 5; i++) {
         this.liZero = this.createElement("li", {
-            className: ["zero"],
+            className: "zero",
             appendTo: this.toolbarInnerUl
         });
     };
 
     this.diceContentWrapper = this.createElement("div", {
-        className: ["dice-content-wrapper"],
+        className: "dice-content-wrapper",
         appendTo: this.windowWrapper
     });
 
@@ -109,14 +109,16 @@ CreateDiceApp.prototype.construct = function () {
 }
 
 CreateDiceApp.prototype.deStruct = function () {
-    console.log("Destroying dice app instance.");
-
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
     }
 
     if (this.dragHandler) {
         this.dragHandler.deStruct();
+    }
+
+    if (this.zIndexHandler) {
+        this.zIndexHandler.deStruct();
     }
 }
 
@@ -126,6 +128,13 @@ CreateDiceApp.prototype.createElement = function (tag, obj) {
 
     if (obj.className) {
         elem.classList.add(obj.className);
+    }
+
+    if (typeof obj.className === "object") {
+        console.log("Is an Object");
+        for (var i = 0; i < obj.className.length; i++) {
+            elem.classList.add(obj.className[i]);
+        }
     }
 
     if (obj.appendTo) {
@@ -206,17 +215,33 @@ CreateDiceApp.prototype.calcSum = function () {
     return this.sum;
 }
 
+CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
+    console.log(str, length, padStr);
+    str = String(str);
+    padStr = String(typeof padStr !== "undefined" ? padStr : "");
+
+    if (str.length >= length) {
+        return str;
+    }
+
+    var paddingLength = length - str.length;
+
+    while (padStr.length < paddingLength) {
+        padStr += padStr;
+    }
+
+    return padStr.slice(0, paddingLength) + str;
+}
+
 CreateDiceApp.prototype.displaySum = function () {
     var stringNumbers = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
     this.liElems = this.windowWrapper.querySelectorAll(".zero");
 
-    this.Sum = this.calcSum();
-
-    var sumToString = this.Sum.toString();
+    this.sum = this.calcSum();
 
     //Här behöver jag skapa metoden för padStart manuellt.
-    var sumWithPadding = sumToString.padStart(this.liElems.length, "0");
+    var sumWithPadding = this.padStartManual(this.sum, this.liElems.length, "0");
 
     console.log(this.liElems.length);
     for (var i = 0; i < this.liElems.length; i++) {

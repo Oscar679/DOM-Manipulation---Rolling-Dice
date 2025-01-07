@@ -23,3 +23,10 @@ ZIndexHandler.prototype.getHighestZIndex = function () {
     }
     return highestIndex;
 }
+
+ZIndexHandler.prototype.deStruct = function () {
+    console.log("Destroying instance of ZIndexHandler.");
+    this.element.removeEventListener("mousedown", function () {
+        this.element.style.zIndex = this.getHighestZIndex() + 1;
+    }.bind(this));
+}

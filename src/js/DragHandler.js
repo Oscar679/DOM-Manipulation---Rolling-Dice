@@ -9,7 +9,8 @@ function DragHandler(element) {
 }
 
 DragHandler.prototype.construct = function () {
-    this.menuBar.addEventListener("mousedown", this.dragStart);
+    console.log(this.element.firstChild);
+    this.element.firstChild.addEventListener("mousedown", this.dragStart);
 }
 
 DragHandler.prototype.dragStart = function (e) {
