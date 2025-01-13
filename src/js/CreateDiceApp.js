@@ -1,4 +1,23 @@
-
+/**
+ * A class for creating and managing a dice
+ * application.
+ * 
+ * This class initializes the following:
+ *  - A dynamic DOM structure for the interface
+ *    of the application.
+ *  - A variable for the sum of the rolled dice.
+ *  - An array for storing each die of the dice
+ *    application.
+ *  - A sound effect, preloaded for performance
+ *    issues.
+ *  - Drag functionality through the instance of
+ *    DragHandler class.
+ *  - Z-index functionality through the instance
+ *    of ZIndexHandler class.
+ * 
+ * @class
+ * @constructor
+ */
 function CreateDiceApp() {
     this.construct();
     this.sum = 0;
@@ -10,6 +29,21 @@ function CreateDiceApp() {
     this.zIndexHandler = new ZIndexHandler(this.windowWrapper);
 }
 
+/**
+ * Constructs and initializes DOM elements for the
+ * interface of the dice application.
+ * 
+ * Creates and appends following elements:
+ *  - A wrapper surrounding the entire window.
+ *  - A wrapper surrounding the menu-bar for closing the
+ *    application.
+ *  - A wrapper surrounding the tool-bar for different 
+ *    actions, e.g. showing sum of dice values, adding, 
+ *    removing and rolling die.
+ *  - A wrapper for the area where each die displays.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.construct = function () {
     console.log('In constructor');
 
@@ -108,6 +142,18 @@ CreateDiceApp.prototype.construct = function () {
     });
 }
 
+/**
+ * Cleans up and removes instances of the dice application 
+ * and its handlers.
+ * 
+ * Removes the following instances:
+ *  - this.windowWrapper, the dice application.
+ *  - this.DragHandler, the drag functionality.
+ *  - this.zIndexHandler, the z-index function-
+ *    ality.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.deStruct = function () {
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
@@ -122,6 +168,28 @@ CreateDiceApp.prototype.deStruct = function () {
     }
 }
 
+/**
+ * Creates the specified DOM element with specific properties.
+ * 
+ * The method creates an HTML element, adds classes to the element along
+ * with possible events. It also appends the element to the DOM structure.
+ * 
+ * @param {string} tag - The type of HTML element to create.
+ * @param {object} obj - Contains properties for class name, appendation and events.
+ * 
+ * @param {string|string[]} obj.className - The class name to assign. If the property
+ *                                          is of an array, each item (class) in the 
+ *                                          array is added.
+ * 
+ * @param {HTMLElement} obj.appendTo - The element in which to append the created element to.
+ * 
+ * @param {object} obj.event - The event listeners to assign.
+ *                             The key, typeOfEvent, corresponds to
+ *                             type of event, e.g. click.
+ * 
+ * @returns {HTMLElement} - DOM-element with specified properties.
+ *                   
+ */
 CreateDiceApp.prototype.createElement = function (tag, obj) {
     console.log(tag, obj);
     var elem = document.createElement(tag);
