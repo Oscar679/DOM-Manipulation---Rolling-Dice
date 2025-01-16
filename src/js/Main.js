@@ -1,12 +1,16 @@
-/** An event listener that initializes the program by creating an instance of Document class when DOM is loaded.
+/** 
+ * An event listener that initializes the program by creating an instance of Document class when DOM is loaded.
+ * 
  * @returns {void}
  */
 document.addEventListener("DOMContentLoaded", function () {
     new Document();
 })
 
-/** The initializing Document function.
+/** 
+ * The initializing Document function.
  * Initializes event listeners for various icons.
+ * 
  * @class
  * @constructor
  */
@@ -14,7 +18,7 @@ function Document() {
     this.init();
 }
 
-/**'
+/**
  * Various icons are extracted from the DOM.
  * 
  * Event listeners are added to the DOM-elements.
@@ -32,6 +36,7 @@ Document.prototype.init = function () {
 
 /**
  * Instantiates the dice application by creating a new instance of CreateDiceApp.
+ * 
  * @returns {void}
  */
 Document.prototype.createDiceApp = function () {
@@ -40,6 +45,7 @@ Document.prototype.createDiceApp = function () {
 
 /**
  * Instantiates the clock application by creating a new instance of CreateClockApp.
+ * 
  * @returns {void}
  */
 Document.prototype.createClockApp = function () {

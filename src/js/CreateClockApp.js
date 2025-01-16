@@ -1,3 +1,17 @@
+/**
+ * A class for creating and managing a clock application.
+ * 
+ * This class initializes the following:
+ * This class initializes the following:
+ *  - A dynamic DOM structure for the interface
+ *    of the application.
+ *  - Drag functionality through the instance of
+ *    DragHandler class.
+ *  - Z-index functionality through the instance
+ *    of ZIndexHandler class.
+ * 
+ * @class
+ */
 function CreateClockApp() {
     this.construct();
 
@@ -5,6 +19,12 @@ function CreateClockApp() {
     this.zIndexHandler = new ZIndexHandler(this.windowWrapper);
 }
 
+/**
+ * Constructs the DOM dynamically for the clock application.
+ * Initializes e.g. wrappers, buttons & li-elements.
+ * 
+ * @returns {void}
+ */
 CreateClockApp.prototype.construct = function () {
     console.log("In constructor of clock application");
     this.windowWrapper = CreateDiceApp.prototype.createElement("div", {

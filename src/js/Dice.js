@@ -1,17 +1,42 @@
+/**
+ * A class for creating and managing individual die.
+ * 
+ * The class initializes the following:
+ *  - Randomization of the value of the die.
+ *  - Creation of DOM representation of the die.
+ * 
+ * @class
+ */
 function Dice() {
     this.construct();
 }
 
+/**
+ * Initializes a random value.
+ * 
+ * @returns {void}
+ */
 Dice.prototype.construct = function () {
     console.log('In constructor of Dice.');
 
     this.value = this.roll();
 }
 
+/**
+ * Randomizes a value in the range of 1-6.
+ * 
+ * @returns {number} - The randomized value.
+ */
 Dice.prototype.roll = function () {
     return Math.floor(Math.random() * 6) + 1;
 }
 
+/**
+ * Creates a li-element and adds a CSS class
+ * according to its value.
+ * 
+ * @returns {HTMLElement} - The created DOM element (die).
+ */
 Dice.prototype.render = function () {
     var diceSides = new Array("one", "two", "three", "four", "five", "six");
 

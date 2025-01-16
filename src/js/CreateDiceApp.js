@@ -16,7 +16,6 @@
  *    of ZIndexHandler class.
  * 
  * @class
- * @constructor
  */
 function CreateDiceApp() {
     this.construct();
@@ -218,6 +217,11 @@ CreateDiceApp.prototype.createElement = function (tag, obj) {
     return elem;
 }
 
+/**
+ * Adds a new dice until it does not fit in the container.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.addDice = function () {
     if (this.die.length > 0) {
         var appWidth = this.diceContentWrapper.offsetWidth;
@@ -230,18 +234,22 @@ CreateDiceApp.prototype.addDice = function () {
         var maxDiceColumn = Math.floor(appHeight / diceHeight);
 
         var maxDice = maxDiceRow * maxDiceColumn;
-
-        console.log("Maximum amount of dice are: ", maxDice);
     }
 
     if (this.die.length >= maxDice) {
-        console.log("Maximum amount of dice reached.");
         return;
     } else {
         this.dice();
     }
 }
 
+/**
+ * Method that creates a new instance of Dice class.
+ * Method appends the instance to the DOM and pushes
+ * the individual instance to the this.die array.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.dice = function () {
     console.log('In prototype "dice" of CreateDiceApp class.');
 
@@ -251,6 +259,11 @@ CreateDiceApp.prototype.dice = function () {
     this.die.push(die);
 }
 
+/**
+ * Removes the last die of the array.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.removeDice = function () {
     if (this.diceWrapperUl.lastChild) {
         this.diceWrapperUl.removeChild(this.diceWrapperUl.lastChild);
@@ -261,6 +274,14 @@ CreateDiceApp.prototype.removeDice = function () {
     }
 }
 
+/**
+ * Rolls all dice in the application and replaces their DOM
+ * representation randomly.
+ * 
+ * Replaces each die with the newly created die.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.rollDice = function () {
     var diceElements = this.diceWrapperUl.children;
 
@@ -273,6 +294,11 @@ CreateDiceApp.prototype.rollDice = function () {
     }
 }
 
+/**
+ * Sums the values of each die.
+ * 
+ * @returns {number} The sum of all dice.
+ */
 CreateDiceApp.prototype.calcSum = function () {
     console.log('Inside calcSum of', this);
     this.sum = 0;
@@ -283,6 +309,13 @@ CreateDiceApp.prototype.calcSum = function () {
     return this.sum;
 }
 
+/**
+ * 
+ * @param {string} str - The string to use as padding.
+ * @param {number} length - Desired length.
+ * @param {*} padStr - The string which is being padded.
+ * @returns {string} - A padded version of the string.
+ */
 CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
     console.log(str, length, padStr);
     str = String(str);
@@ -301,6 +334,11 @@ CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
     return padStr.slice(0, paddingLength) + str;
 }
 
+/**
+ * Displays the total sum of all dice.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.displaySum = function () {
     var stringNumbers = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
@@ -308,7 +346,6 @@ CreateDiceApp.prototype.displaySum = function () {
 
     this.sum = this.calcSum();
 
-    //Här behöver jag skapa metoden för padStart manuellt.
     var sumWithPadding = this.padStartManual(this.sum, this.liElems.length, "0");
 
     console.log(this.liElems.length);
@@ -321,6 +358,12 @@ CreateDiceApp.prototype.displaySum = function () {
     }
 }
 
+/**
+ * Method that plays the audio file connected with
+ * different events.
+ * 
+ * @returns {void}
+ */
 CreateDiceApp.prototype.playSound = function () {
     console.log("In audio playing method.");
     this.sound.play();
