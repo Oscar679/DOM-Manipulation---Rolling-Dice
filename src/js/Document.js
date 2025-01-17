@@ -1,20 +1,10 @@
 (function () {
     /** 
-     * An event listener that initializes the program by creating an instance of Document class when DOM is loaded.
+     * The initializing Document function.
+     * Initializes event listeners for various icons.
      * 
-     * @returns {void}
+     * @class
      */
-    document.addEventListener("DOMContentLoaded", function () {
-        new Document();
-    })
-
-
-    /** 
- * The initializing Document function.
- * Initializes event listeners for various icons.
- * 
- * @class
- */
     function Document() {
         this.init();
     }
@@ -52,4 +42,11 @@
     Document.prototype.createClockApp = function () {
         new CreateClockApp();
     }
+
+    function initDocumentOnLoad() {
+        new Document();
+    }
+
+    // Attach the event listener
+    document.addEventListener("DOMContentLoaded", initDocumentOnLoad);
 })();
