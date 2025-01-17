@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
  * Initializes event listeners for various icons.
  * 
  * @class
- * @constructor
  */
 function Document() {
     this.init();

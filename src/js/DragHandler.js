@@ -1,3 +1,11 @@
+/**
+ * A class for creating and managing the drag functionality of an application.
+ * Initiaizes the construction of the fundamental functionality.
+ * 
+ * @class
+ *  
+ * @param {HTMLElement} element - The HTML element which is being handled.
+ */
 function DragHandler(element) {
     this.element = element;
     this.menuBar = this.element.firstChild;
@@ -8,17 +16,26 @@ function DragHandler(element) {
     this.construct();
 }
 
+/**
+ * Constructs and initializes an eventlistener for which item that is being targeted.
+ * 
+ * @returns {void}
+ */
 DragHandler.prototype.construct = function () {
-    console.log(this.element.firstChild);
     this.element.firstChild.addEventListener("mousedown", this.dragStart);
 }
 
+/**
+ * Dynamically constructs drag-functionality.
+ * 
+ * @param {MouseEvent} e - The mouse event.
+ * 
+ * @returns {void}
+ */
 DragHandler.prototype.dragStart = function (e) {
     e.preventDefault();
 
     var dragElemRect = this.element.getBoundingClientRect();
-
-    console.log(dragElemRect);
 
     this.offsetX = e.clientX - dragElemRect.left;
     this.offsetY = e.clientY - dragElemRect.top;
@@ -28,6 +45,13 @@ DragHandler.prototype.dragStart = function (e) {
     document.addEventListener("mouseup", this.onMouseUp);
 }
 
+/**
+ * Calculates the position of moving target.
+ * 
+ * @param {MouseEvent} e - The mouse event.
+ * 
+ * @returns {void}
+ */
 DragHandler.prototype.onMouseMove = function (e) {
     e.preventDefault();
 
@@ -39,14 +63,22 @@ DragHandler.prototype.onMouseMove = function (e) {
     this.element.style.top = y + "px";
 }
 
+/**
+ * Removes eventlisteners when mouse button is released which kills the dragging process.
+ * 
+ * @returns {void}
+ */
 DragHandler.prototype.onMouseUp = function () {
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
 }
 
+/**
+ * Destructs eventlisteners for dynamic drag functionality.
+ * 
+ * @returns {void}
+ */
 DragHandler.prototype.deStruct = function () {
-    console.log("Destroying eventlisteners of DragHandler.");
-
     this.element.removeEventListener("mousedown", this.dragStart);
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);

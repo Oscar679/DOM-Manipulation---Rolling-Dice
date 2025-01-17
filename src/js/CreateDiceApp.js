@@ -44,14 +44,11 @@ function CreateDiceApp() {
  * @returns {void}
  */
 CreateDiceApp.prototype.construct = function () {
-    console.log('In constructor');
-
     this.windowWrapper = this.createElement("div", {
         className: "dice-window-wrapper",
         appendTo: document.getElementById("page-content-wrapper")
     });
 
-    console.log(this.windowWrapper);
     this.menuWrapper = this.createElement("div", {
         className: "dice-menubar-wrapper",
         appendTo: this.windowWrapper
@@ -190,7 +187,6 @@ CreateDiceApp.prototype.deStruct = function () {
  *                   
  */
 CreateDiceApp.prototype.createElement = function (tag, obj) {
-    console.log(tag, obj);
     var elem = document.createElement(tag);
 
     if (obj.className) {
@@ -198,7 +194,6 @@ CreateDiceApp.prototype.createElement = function (tag, obj) {
     }
 
     if (typeof obj.className === "object") {
-        console.log("Is an Object");
         for (var i = 0; i < obj.className.length; i++) {
             elem.classList.add(obj.className[i]);
         }
@@ -251,8 +246,6 @@ CreateDiceApp.prototype.addDice = function () {
  * @returns {void}
  */
 CreateDiceApp.prototype.dice = function () {
-    console.log('In prototype "dice" of CreateDiceApp class.');
-
     var die = new Dice();
 
     this.diceWrapperUl.appendChild(die.render());
@@ -269,7 +262,6 @@ CreateDiceApp.prototype.removeDice = function () {
         this.diceWrapperUl.removeChild(this.diceWrapperUl.lastChild);
         this.die.pop();
     } else {
-        console.log("There are no dice to remove.");
         return;
     }
 }
@@ -300,7 +292,6 @@ CreateDiceApp.prototype.rollDice = function () {
  * @returns {number} The sum of all dice.
  */
 CreateDiceApp.prototype.calcSum = function () {
-    console.log('Inside calcSum of', this);
     this.sum = 0;
 
     for (var i = 0; i < this.die.length; i++) {
@@ -317,7 +308,6 @@ CreateDiceApp.prototype.calcSum = function () {
  * @returns {string} - A padded version of the string.
  */
 CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
-    console.log(str, length, padStr);
     str = String(str);
     padStr = String(typeof padStr !== "undefined" ? padStr : "");
 
@@ -348,7 +338,6 @@ CreateDiceApp.prototype.displaySum = function () {
 
     var sumWithPadding = this.padStartManual(this.sum, this.liElems.length, "0");
 
-    console.log(this.liElems.length);
     for (var i = 0; i < this.liElems.length; i++) {
         var number = parseInt(sumWithPadding[i]);
 
@@ -365,6 +354,5 @@ CreateDiceApp.prototype.displaySum = function () {
  * @returns {void}
  */
 CreateDiceApp.prototype.playSound = function () {
-    console.log("In audio playing method.");
     this.sound.play();
 }

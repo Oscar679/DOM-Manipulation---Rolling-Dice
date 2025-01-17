@@ -26,7 +26,6 @@ function CreateClockApp() {
  * @returns {void}
  */
 CreateClockApp.prototype.construct = function () {
-    console.log("In constructor of clock application");
     this.windowWrapper = CreateDiceApp.prototype.createElement("div", {
         className: "clock-window-wrapper",
         appendTo: document.getElementById("page-content-wrapper")

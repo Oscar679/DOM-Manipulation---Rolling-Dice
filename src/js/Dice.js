@@ -17,8 +17,6 @@ function Dice() {
  * @returns {void}
  */
 Dice.prototype.construct = function () {
-    console.log('In constructor of Dice.');
-
     this.value = this.roll();
 }
 
