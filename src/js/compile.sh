@@ -1,0 +1,2 @@
+#!/bin/bash
+google-closure-compiler --js /c/Users/oscar/Desktop/1me325_u_start/src/js/CreateClockApp.js --js /c/Users/oscar/Desktop/1me325_u_start/src/js/CreateDiceApp.js --js /c/Users/oscar/Desktop/1me325_u_start/src/js/Dice.js --js /c/Users/oscar/Desktop/1me325_u_start/src/js/Document.js --js /c/Users/oscar/Desktop/1me325_u_start/src/js/DragHandler.js --js /c/Users/oscar/Desktop/1me325_u_start/src/js/ZIndexHandler.js --js_output_file output.js --language_in ECMASCRIPT5_STRICT --language_out ECMASCRIPT5_STRICT --compilation_level SIMPLE_OPTIMIZATIONS
