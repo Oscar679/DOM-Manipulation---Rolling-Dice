@@ -48,6 +48,11 @@ Dice.prototype.render = function () {
     return this.liDice;
 }
 
+/**
+ * Updates the value of the current dice.
+ * 
+ * @returns {this.liDice} - The updated li-element.
+ */
 Dice.prototype.updateValue = function () {
     var diceSides = new Array("one", "two", "three", "four", "five", "six");
 
