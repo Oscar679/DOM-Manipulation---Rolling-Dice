@@ -8,6 +8,8 @@
  * @class
  */
 function Dice() {
+    this.value = null;
+    this.liDice = null;
     this.construct();
 }
 
@@ -18,6 +20,7 @@ function Dice() {
  */
 Dice.prototype.construct = function () {
     this.value = this.roll();
+    this.liDice = this.render();
 }
 
 /**
@@ -26,7 +29,8 @@ Dice.prototype.construct = function () {
  * @returns {number} - The randomized value.
  */
 Dice.prototype.roll = function () {
-    return Math.floor(Math.random() * 6) + 1;
+    this.value = Math.floor(Math.random() * 6) + 1;
+    return this.value;
 }
 
 /**
@@ -39,6 +43,18 @@ Dice.prototype.render = function () {
     var diceSides = new Array("one", "two", "three", "four", "five", "six");
 
     this.liDice = document.createElement("li");
+    this.liDice.classList.add("dice", "dice-side-" + diceSides[this.value - 1]);
+
+    return this.liDice;
+}
+
+Dice.prototype.updateValue = function () {
+    var diceSides = new Array("one", "two", "three", "four", "five", "six");
+
+    this.value = this.roll();
+
+    this.liDice.classList.remove(...this.liDice.classList);
+
     this.liDice.classList.add("dice", "dice-side-" + diceSides[this.value - 1]);
 
     return this.liDice;

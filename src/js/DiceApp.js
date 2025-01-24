@@ -17,7 +17,7 @@
  * 
  * @class
  */
-function CreateDiceApp() {
+function DiceApp() {
     this.construct();
     this.sum = 0;
     this.die = new Array();
@@ -43,7 +43,7 @@ function CreateDiceApp() {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.construct = function () {
+DiceApp.prototype.construct = function () {
     this.windowWrapper = this.createElement("div", {
         className: "dice-window-wrapper",
         appendTo: document.getElementById("page-content-wrapper")
@@ -150,7 +150,7 @@ CreateDiceApp.prototype.construct = function () {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.deStruct = function () {
+DiceApp.prototype.deStruct = function () {
     if (this.windowWrapper) {
         this.windowWrapper.parentNode.removeChild(this.windowWrapper);
     }
@@ -173,9 +173,9 @@ CreateDiceApp.prototype.deStruct = function () {
  * @param {string} tag - The type of HTML element to create.
  * @param {object} obj - Contains properties for class name, appendation and events.
  * 
- * @param {string|string[]} obj.className - The class name to assign. If the property
- *                                          is of an array, each item (class) in the 
- *                                          array is added.
+ * @param {Array<string>} obj.className - The class name to assign. If the property
+ *                                        is of an array, each item (class) in the 
+ *                                        array is added.
  * 
  * @param {HTMLElement} obj.appendTo - The element in which to append the created element to.
  * 
@@ -186,7 +186,7 @@ CreateDiceApp.prototype.deStruct = function () {
  * @returns {HTMLElement} - DOM-element with specified properties.
  *                   
  */
-CreateDiceApp.prototype.createElement = function (tag, obj) {
+DiceApp.prototype.createElement = function (tag, obj) {
     var elem = document.createElement(tag);
 
     if (obj.className) {
@@ -217,7 +217,7 @@ CreateDiceApp.prototype.createElement = function (tag, obj) {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.addDice = function () {
+DiceApp.prototype.addDice = function () {
     if (this.die.length > 0) {
         var appWidth = this.diceContentWrapper.offsetWidth;
         var diceWidth = this.die[0].liDice.offsetWidth + 8;
@@ -234,22 +234,10 @@ CreateDiceApp.prototype.addDice = function () {
     if (this.die.length >= maxDice) {
         return;
     } else {
-        this.dice();
+        var die = new Dice();
+        this.diceWrapperUl.appendChild(die.render());
+        this.die.push(die);
     }
-}
-
-/**
- * Method that creates a new instance of Dice class.
- * Method appends the instance to the DOM and pushes
- * the individual instance to the this.die array.
- * 
- * @returns {void}
- */
-CreateDiceApp.prototype.dice = function () {
-    var die = new Dice();
-
-    this.diceWrapperUl.appendChild(die.render());
-    this.die.push(die);
 }
 
 /**
@@ -257,7 +245,7 @@ CreateDiceApp.prototype.dice = function () {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.removeDice = function () {
+DiceApp.prototype.removeDice = function () {
     if (this.diceWrapperUl.lastChild) {
         this.diceWrapperUl.removeChild(this.diceWrapperUl.lastChild);
         this.die.pop();
@@ -274,15 +262,9 @@ CreateDiceApp.prototype.removeDice = function () {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.rollDice = function () {
-    var diceElements = this.diceWrapperUl.children;
-
-    for (var i = 0; i < diceElements.length; i++) {
-        var die = new Dice();
-        var newDice = die.render();
-
-        this.diceWrapperUl.replaceChild(newDice, diceElements[i]);
-        this.die[i] = die;
+DiceApp.prototype.rollDice = function () {
+    for (var i = 0; i < this.die.length; i++) {
+        this.die[i].updateValue();
     }
 }
 
@@ -291,7 +273,7 @@ CreateDiceApp.prototype.rollDice = function () {
  * 
  * @returns {number} The sum of all dice.
  */
-CreateDiceApp.prototype.calcSum = function () {
+DiceApp.prototype.calcSum = function () {
     this.sum = 0;
 
     for (var i = 0; i < this.die.length; i++) {
@@ -307,7 +289,7 @@ CreateDiceApp.prototype.calcSum = function () {
  * @param {*} padStr - The string which is being padded.
  * @returns {string} - A padded version of the string.
  */
-CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
+DiceApp.prototype.padStartManual = function (str, length, padStr) {
     str = String(str);
     padStr = String(typeof padStr !== "undefined" ? padStr : "");
 
@@ -329,7 +311,7 @@ CreateDiceApp.prototype.padStartManual = function (str, length, padStr) {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.displaySum = function () {
+DiceApp.prototype.displaySum = function () {
     var stringNumbers = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
     this.liElems = this.windowWrapper.querySelectorAll(".zero");
@@ -353,6 +335,6 @@ CreateDiceApp.prototype.displaySum = function () {
  * 
  * @returns {void}
  */
-CreateDiceApp.prototype.playSound = function () {
+DiceApp.prototype.playSound = function () {
     this.sound.play();
 }

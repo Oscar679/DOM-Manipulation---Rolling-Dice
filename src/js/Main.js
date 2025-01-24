@@ -1,20 +1,20 @@
 
 /** 
- * The initializing Document function.
+ * The initializing Main function.
  * Initializes event listeners for various icons.
  * 
  * @class
  */
-function Document() {
+function Main() {
     this.init();
 }
 
 /**
- * An IIFE that initializes the Document class.
+ * An IIFE that initializes the Main class.
  */
 (function () {
     function initDocumentOnLoad() {
-        new Document();
+        new Main();
     }
 
     document.addEventListener("DOMContentLoaded", initDocumentOnLoad);
@@ -28,7 +28,7 @@ function Document() {
  * The event listeners trigger their individual application creator-method.
  * @returns {void}
  */
-Document.prototype.init = function () {
+Main.prototype.init = function () {
     var diceBtn = document.getElementById("icon-dice");
     diceBtn.addEventListener("click", this.createDiceApp.bind(this));
 
@@ -37,19 +37,19 @@ Document.prototype.init = function () {
 }
 
 /**
- * Instantiates the dice application by creating a new instance of CreateDiceApp.
+ * Instantiates the dice application by creating a new instance of DiceApp.
  * 
  * @returns {void}
  */
-Document.prototype.createDiceApp = function () {
-    new CreateDiceApp();
+Main.prototype.createDiceApp = function () {
+    new DiceApp();
 }
 
 /**
- * Instantiates the clock application by creating a new instance of CreateClockApp.
+ * Instantiates the clock application by creating a new instance of ClockApp.
  * 
  * @returns {void}
  */
-Document.prototype.createClockApp = function () {
-    new CreateClockApp();
+Main.prototype.createClockApp = function () {
+    new ClockApp();
 }
