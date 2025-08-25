@@ -38,33 +38,27 @@ It demonstrates **modular, reusable design** by splitting functionality into sep
 
     Click the clock icon to open the Clock App.
 
-Technical Notes
+## Technical Notes
 
-  Written in ES5-style JavaScript OOP using constructor functions and prototypes.
+- Written in **ES5-style JavaScript OOP** using constructor functions and prototypes.  
+- DOM is created dynamically via `createElement` helper (in `DiceApp.js`).  
+- **Dice logic** is encapsulated in `Dice.js`, while UI and state management are handled in `DiceApp.js`.  
+- **Clock logic** is encapsulated in `ClockApp.js`.  
 
-  DOM is created dynamically via createElement helper (in DiceApp.js).
+### Window Behavior
+- `DragHandler.js` manages mouse dragging.  
+- `ZIndexHandler.js` ensures the active window always stays on top.  
 
-  Dice logic is encapsulated in Dice.js, while UI and state management are handled in DiceApp.js.
+Includes both **source code** and a **minified build** (`output.js`).  
 
-  Clock logic is encapsulated in ClockApp.js.
+---
 
-Window behavior:
+## Learning Goals
 
-  DragHandler.js manages mouse dragging.
-
-  ZIndexHandler.js ensures active window always stays on top.
-
-  Includes both source code and a minified build (output.js).
-
-  Learning Goals
-
-This project was created as part of an OOP assignment.
+This project was created as part of an OOP assignment.  
 It focuses on:
 
-  Practicing object-oriented design in JavaScript (without ES6 classes).
-
-  Encapsulation of logic in separate modules.
-
-  DOM manipulation without external libraries.
-
-  Understanding interaction patterns (drag & drop, z-index, event-driven UI).
+- Practicing **object-oriented design** in JavaScript (without ES6 classes).  
+- Encapsulation of logic in separate modules.  
+- DOM manipulation without external libraries.  
+- Understanding interaction patterns (drag & drop, z-index, event-driven UI).  
