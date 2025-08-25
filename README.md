@@ -24,12 +24,12 @@ It demonstrates **modular, reusable design** by splitting functionality into sep
 
 ---
 
-## Getting Started
+## ​ Getting Started
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-   cd YOUR_REPOSITORY
+   git clone https://github.com/Oscar679/DOM-Manipulation---Rolling-Dice.git
+   cd DOM-Manipulation---Rolling-Dice
 
 2. Open index.html in your browser.
 
