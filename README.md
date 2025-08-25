@@ -13,7 +13,7 @@ It demonstrates **modular, reusable design** by splitting functionality into sep
 - Plays a **sound effect** when adding, removing, or rolling dice.
 - Drag the dice application window anywhere on the screen.
 
-### ⏰ Clock Application
+### ⏰ Clock Application (not completely finished)
 - A digital clock displaying hours, minutes, and seconds.
 - Built dynamically through DOM manipulation.
 - Supports drag-and-drop movement like the Dice App.
