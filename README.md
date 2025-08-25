@@ -24,25 +24,6 @@ It demonstrates **modular, reusable design** by splitting functionality into sep
 
 ---
 
-## Project Structure
-
-├── index.html # Main HTML entry point
-├── src/
-│ ├── css/
-│ │ └── style.css # Application styling
-│ └── js/
-│ ├── Main.js # Initializes apps (entry point)
-│ ├── Dice.js # Represents a single die
-│ ├── DiceApp.js # Manages dice app logic & UI
-│ ├── ClockApp.js # Manages clock app logic & UI
-│ ├── DragHandler.js # Handles window dragging
-│ ├── ZIndexHandler.js # Handles window stacking order
-│ ├── VPJsOOP.js # External OOP helper library
-│ └── output.js # Minified/compiled output
-
-
----
-
 ## Getting Started
 
 1. Clone the repository:
