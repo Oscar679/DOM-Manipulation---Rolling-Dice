@@ -1,0 +1,89 @@
+# 🎲⏰ OOP Dice & Clock Applications
+
+This project is a small **Object-Oriented Programming (OOP)** exercise built with vanilla JavaScript, HTML, and CSS.  
+It demonstrates **modular, reusable design** by splitting functionality into separate classes and modules.
+
+---
+
+##  Features
+
+### 🎲 Dice Application
+- Add, remove, and roll dice dynamically.
+- Displays the **sum of all dice values** in real time.
+- Plays a **sound effect** when adding, removing, or rolling dice.
+- Drag the dice application window anywhere on the screen.
+
+### ⏰ Clock Application
+- A digital clock displaying hours, minutes, and seconds.
+- Built dynamically through DOM manipulation.
+- Supports drag-and-drop movement like the Dice App.
+
+### 🖱️ Window Handling
+- **Drag & Drop** windows with [`DragHandler.js`](src/js/DragHandler.js).
+- Automatic **z-index ordering** with [`ZIndexHandler.js`](src/js/ZIndexHandler.js), so the active window always comes to the front.
+
+---
+
+## Project Structure
+
+├── index.html # Main HTML entry point
+├── src/
+│ ├── css/
+│ │ └── style.css # Application styling
+│ └── js/
+│ ├── Main.js # Initializes apps (entry point)
+│ ├── Dice.js # Represents a single die
+│ ├── DiceApp.js # Manages dice app logic & UI
+│ ├── ClockApp.js # Manages clock app logic & UI
+│ ├── DragHandler.js # Handles window dragging
+│ ├── ZIndexHandler.js # Handles window stacking order
+│ ├── VPJsOOP.js # External OOP helper library
+│ └── output.js # Minified/compiled output
+
+
+---
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+   cd YOUR_REPOSITORY
+
+2. Open index.html in your browser.
+
+3. Use the menu:
+    Click the dice icon to open the Dice App.
+
+    Click the clock icon to open the Clock App.
+
+Technical Notes
+
+  Written in ES5-style JavaScript OOP using constructor functions and prototypes.
+
+  DOM is created dynamically via createElement helper (in DiceApp.js).
+
+  Dice logic is encapsulated in Dice.js, while UI and state management are handled in DiceApp.js.
+
+  Clock logic is encapsulated in ClockApp.js.
+
+Window behavior:
+
+  DragHandler.js manages mouse dragging.
+
+  ZIndexHandler.js ensures active window always stays on top.
+
+  Includes both source code and a minified build (output.js).
+
+  Learning Goals
+
+This project was created as part of an OOP assignment.
+It focuses on:
+
+  Practicing object-oriented design in JavaScript (without ES6 classes).
+
+  Encapsulation of logic in separate modules.
+
+  DOM manipulation without external libraries.
+
+  Understanding interaction patterns (drag & drop, z-index, event-driven UI).
