@@ -62,3 +62,8 @@ It focuses on:
 - Encapsulation of logic in separate modules.  
 - DOM manipulation without external libraries.  
 - Understanding interaction patterns (drag & drop, z-index, event-driven UI).  
+
+
+
+https://github.com/user-attachments/assets/b2405a7d-ac19-43d4-8757-ad6fbc785914
+
